@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Grafo {
 
@@ -44,7 +45,7 @@ public class Grafo {
         this.M = M;
     }
 
-    public void CrearMatrizAdy(String V[], String L[]) {
+    public void CrearMatrizAdy(String[] V, String[] L) {
         int[][] M = new int[V.length][V.length];
 
         for (int i = 0; i < L.length; i += 3) {
@@ -76,11 +77,11 @@ public class Grafo {
             for (int i = 0; i < M[0].length; i++) {
                 System.out.print(M[j][i]);
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 
-    public void CrearListaAdy(int M[][], String V[]) {
+    public void CrearListaAdy(int[][] M, String[] V) {
         Nodo P = null;
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
@@ -120,7 +121,7 @@ public class Grafo {
                 P = P.getLiga();
             }
             System.out.print("/");
-            System.out.println("");
+            System.out.println();
         }
     }
 
@@ -159,12 +160,12 @@ public class Grafo {
             for (int i = 0; i < MI[0].length; i++) {
                 System.out.print(MI[j][i]);
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 
     public void MinDistance(int min, int inicio, int fin){
-        int dm[][] = new int[M.length][M.length];
+        int[][] dm = new int[M.length][M.length];
         ArrayList<Integer> vis = new ArrayList();
         int i =0, k =0, d,d1;
         while(k < dm.length){
@@ -211,8 +212,10 @@ public class Grafo {
     private boolean content(int j, ArrayList<Integer> vis){
         boolean ban = false;
         for (Integer vi : vis) {
-            if( vi.intValue() == j)
+            if (vi.intValue() == j) {
                 ban = true;
+                break;
+            }
         }
         return ban;
     }
@@ -294,7 +297,7 @@ public class Grafo {
         }
     }
 
-    public void Mostrar_Grafo(String V[]) {
+    public void Mostrar_Grafo(String[] V) {
         int[][] MA = M;
         String ConfigGraphviz = "";
         int p = 0;
@@ -312,4 +315,96 @@ public class Grafo {
 
     }
 
+    //Kruskal
+    public void kruskal() {
+        int[][] aristas = obtenerAristasOrdenadas();
+        int[] padre = new int[Vect.length];
+        Arrays.fill(padre, -1);
+
+        System.out.println("Aristas del árbol de expansión mínima (Kruskal):");
+
+        for (int i = 0; i < aristas.length; i++) {
+            int[] arista = aristas[i];
+            int origen = arista[0];
+            int destino = arista[1];
+
+            int raizOrigen = encontrarRaiz(origen, padre);
+            int raizDestino = encontrarRaiz(destino, padre);
+
+            if (raizOrigen != raizDestino) {
+                System.out.println(Vect[origen] + " -- " + Vect[destino]);
+                unirComponentesConexas(raizOrigen, raizDestino, padre);
+            }
+        }
+    }
+
+    private int[][] obtenerAristasOrdenadas() {
+        // Obtener todas las aristas y ordenarlas por peso
+        int[][] aristas = new int[M.length * M.length][3];
+        int k = 0;
+
+        for (int i = 0; i < M.length; i++) {
+            for (int j = i + 1; j < M.length; j++) {
+                if (M[i][j] != 0) {
+                    aristas[k++] = new int[]{i, j, M[i][j]};
+                }
+            }
+        }
+
+        Arrays.sort(aristas, (a, b) -> Integer.compare(a[2], b[2]));
+
+        return Arrays.copyOf(aristas, k);
+    }
+
+    private int encontrarRaiz(int nodo, int[] padre) {
+        while (padre[nodo] != -1) {
+            nodo = padre[nodo];
+        }
+        return nodo;
+    }
+
+    private void unirComponentesConexas(int raizOrigen, int raizDestino, int[] padre) {
+        padre[raizOrigen] = raizDestino;
+    }
+
+    //Dijkstra
+    public void dijkstra(int inicio) {
+        int[] distancia = new int[Vect.length];
+        boolean[] visitado = new boolean[Vect.length];
+
+        Arrays.fill(distancia, Integer.MAX_VALUE);
+        distancia[inicio] = 0;
+
+        for (int count = 0; count < Vect.length - 1; count++) {
+            int u = obtenerNodoConDistanciaMinima(distancia, visitado);
+            visitado[u] = true;
+
+            for (int v = 0; v < Vect.length; v++) {
+                if (!visitado[v] && M[u][v] != 0 && distancia[u] != Integer.MAX_VALUE &&
+                        distancia[u] + M[u][v] < distancia[v]) {
+                    distancia[v] = distancia[u] + M[u][v];
+                }
+            }
+        }
+
+        System.out.println("Distancias mínimas desde el Vertice " + Vect[inicio].getDato() + ":");
+
+        for (int i = 0; i < Vect.length; i++) {
+            System.out.println("Al Vertice" + Vect[i].getDato() + ": con Arista de " + distancia[i]+" U");
+        }
+    }
+
+    private int obtenerNodoConDistanciaMinima(int[] distancia, boolean[] visitado) {
+        int minDistancia = Integer.MAX_VALUE;
+        int minNodo = -1;
+
+        for (int v = 0; v < Vect.length; v++) {
+            if (!visitado[v] && distancia[v] <= minDistancia) {
+                minDistancia = distancia[v];
+                minNodo = v;
+            }
+        }
+
+        return minNodo;
+    }
 }

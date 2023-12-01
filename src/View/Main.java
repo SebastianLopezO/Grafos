@@ -107,7 +107,12 @@ public class Main {
                         }
                     }
                     break;
-
+                case "Kruskal":
+                    G.kruskal();
+                    break;
+                case "Dijkstra":
+                    G.dijkstra(GetNum("Recorrido de Dijkstra"));
+                    break;
                 case "Salir":
                     App=false;
                     break;
@@ -123,6 +128,8 @@ public class Main {
                 "Matriz de Incidencia",
                 "Distancia Minima",
                 "Recorridos",
+                "Kruskal",
+                "Dijkstra",
                 "Salir"
         };
 
@@ -271,6 +278,19 @@ public class Main {
                 }
             } else {
                 System.out.println("Debes ingresar valores validos");
+            }
+        }
+    }
+
+    public static int GetNum(String Option) {
+        int num;
+        while (true) {
+            try {
+                num = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Numero para "+Option+ ": "));
+                return num;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "No se ha insertado un numero.");
+                System.out.println("No ha insertado un numero, error" + ex);
             }
         }
     }
