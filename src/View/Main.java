@@ -185,13 +185,19 @@ public class Main {
                     System.out.println("No puedes dejar valores vacios");
                 }
             } else {
+                StringBuilder txtEdges = new StringBuilder("Aristas:\n");
+
+                // Iterar a través de los elementos de tres en tres
+                for (int i = 0; i < Edges.size(); i += 3) {
+                    txtEdges.append("Vertice #").append(Edges.get(i)).append(", Vertice #").append(Edges.get(i + 1)).append(", Distancia: ").append(Edges.get(i + 2)).append("\n");
+                }
                 JOptionPane.showMessageDialog(
                         null,
-                        "Valores ingresados:\n" + Edges,
+                        "Valores ingresados:\n" + txtEdges,
                         "Aristas Ingresada",
                         JOptionPane.QUESTION_MESSAGE
                 );
-                System.out.println("Aristas: "+ Edges);
+                System.out.println("Aristas: "+ txtEdges);
                 String[] res = new String[Edges.size()];
                 Edges.toArray(res);
                 return res;
