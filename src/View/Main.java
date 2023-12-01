@@ -1,5 +1,8 @@
 package View;
 
+import java.awt.*;
+import java.awt.desktop.SystemEventListener;
+import java.util.ArrayList;
 import java.util.Scanner;
 import Logic.Grafo;
 
@@ -13,19 +16,12 @@ public class Main {
         
         Boolean App=true, Route;
 
-        System.out.println("Ingrese los vertices separadas por comas: ");
-        Ver = sc.next();
-        System.out.println("Ingrese los lados y su distancia separadas por comas: ");
-        Lad = sc.next();
-
-        String[] V = Ver.split(",");
-        String[] L = Lad.split(",");
+        String[] V = MenuCorners();
+        String[] L = MenuEdges();
 
         while (L.length % 3 != 0) {
             System.out.println("Hubo un problema con el ingreso de los lados.: ");
-            System.out.println("Ingrese de nuevo los lados y su distancia: ");
-            Lad = sc.next();
-            L = Lad.split(",");
+            L = MenuEdges();
         }
 
         Grafo G = new Grafo(V.length);
@@ -83,11 +79,6 @@ public class Main {
                 case "Recorridos":
                     Route=true;
                     while(Route) {
-                        System.out.println("");
-                        System.out.println("MENU RECORRIDOS");
-                        System.out.println("1. DFS.\n"
-                                + "2. BFS.\n"
-                                + "3. Volver.");
                         OpcRoute = MenuRoute();
 
                         switch (OpcRoute) {
@@ -112,8 +103,6 @@ public class Main {
                                 Route=false;
                                 break;
 
-                            default:
-                                System.out.println("Opcion incorrecta.");
                         }
                     }
                     break;
@@ -165,4 +154,87 @@ public class Main {
         return Option;
     }
 
+    public static String[] MenuEdges(){
+        JPanel panel = new JPanel(new GridLayout(3, 2));
+
+        JTextField corner1 = new JTextField();
+        JTextField corner2 = new JTextField();
+        JTextField distance = new JTextField();
+
+        panel.add(new JLabel("Ingrese el primer vertice: "));
+        panel.add(corner1);
+        panel.add(new JLabel("Ingrese el segundo vertice: "));
+        panel.add(corner2);
+        panel.add(new JLabel("Ingrese la distancia: "));
+        panel.add(distance);
+
+        ArrayList<String> Edges = new ArrayList<>();
+
+        while(true) {
+            corner1.setText(""); corner2.setText(""); distance.setText("");
+            int result = JOptionPane.showConfirmDialog(null, panel, "Ingreso de Aristas",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION) {
+                String Vconer1 = corner1.getText();
+                String Vconer2 = corner2.getText();
+                String Vdistance = distance.getText();
+
+                if(Vconer1!="" && Vconer2!="" && Vdistance!=""){
+                    Edges.add(Vconer1); Edges.add(Vconer2); Edges.add(Vdistance);
+                }else{
+                    System.out.println("No puedes dejar valores vacios");
+                }
+            } else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Valores ingresados:\n" + Edges.toString(),
+                        "Aristas Ingresada",
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                System.out.println("Vertices: "+Edges.toString());
+                String[] res = new String[Edges.size()];
+                Edges.toArray(res);
+                return res;
+            }
+        }
+    }
+
+    public static String[] MenuCorners(){
+        JPanel panel = new JPanel(new GridLayout(1, 2));
+
+        JTextField corner = new JTextField();
+
+        panel.add(new JLabel("Ingrese el vertice: "));
+        panel.add(corner);
+
+
+        ArrayList<String> Corners = new ArrayList<>();
+
+        while(true) {
+            corner.setText("");
+            int result = JOptionPane.showConfirmDialog(null, panel, "Ingreso de Vertices",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION) {
+                String Vcorner = corner.getText();
+                if(Vcorner!=""){
+                    Corners.add(Vcorner);
+                }else{
+                    System.out.println("No puedes dejar valores vacios");
+                }
+            } else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Valores ingresados:\n" + "Vertices: " + Corners.toString(),
+                        "Arista Ingresada",
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                System.out.println("Aristas: "+Corners.toString());
+                String[] res = new String[Corners.size()];
+                Corners.toArray(res);
+                return res;
+            }
+        }
+    }
 }
