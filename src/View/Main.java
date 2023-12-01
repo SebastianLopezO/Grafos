@@ -62,10 +62,10 @@ public class Main {
                     }
                     String in,
                             fi;
-                    System.out.println("Ingresa el vertice inicial");
-                    in = sc.next();
-                    System.out.println("Ingresa el vertice final");
-                    fi = sc.next();
+                    String[] ConfigMin = MenuMinDistance();
+                    in= ConfigMin[0];
+                    fi = ConfigMin[1];
+
                     for (int i = 0; i < V.length; i++) {
                         if (in.equalsIgnoreCase(V[i])) {
                             inicio = i;
@@ -126,7 +126,7 @@ public class Main {
                 "Salir"
         };
 
-        String Option = (String) JOptionPane.showInputDialog(
+        return (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione una Opcion: ",
                 "Menu de Grafos",
@@ -134,7 +134,6 @@ public class Main {
                 null,
                 Options,
                 Options[0]);
-        return Option;
     }
 
     public static String MenuRoute(){
@@ -144,7 +143,7 @@ public class Main {
                 "Volver"
         };
 
-        String Option = (String) JOptionPane.showInputDialog(
+        return (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione una Opcion: ",
                 "Menu de Recorrido de grafo",
@@ -152,7 +151,6 @@ public class Main {
                 null,
                 Options,
                 Options[0]);
-        return Option;
     }
 
     public static String[] MenuEdges(){
@@ -189,11 +187,11 @@ public class Main {
             } else {
                 JOptionPane.showMessageDialog(
                         null,
-                        "Valores ingresados:\n" + Edges.toString(),
+                        "Valores ingresados:\n" + Edges,
                         "Aristas Ingresada",
                         JOptionPane.QUESTION_MESSAGE
                 );
-                System.out.println("Vertices: "+Edges.toString());
+                System.out.println("Vertices: "+ Edges);
                 String[] res = new String[Edges.size()];
                 Edges.toArray(res);
                 return res;
@@ -227,14 +225,46 @@ public class Main {
             } else {
                 JOptionPane.showMessageDialog(
                         null,
-                        "Valores ingresados:\n" + "Vertices: " + Corners.toString(),
+                        "Valores ingresados:\n" + "Vertices: " + Corners,
                         "Arista Ingresada",
                         JOptionPane.QUESTION_MESSAGE
                 );
-                System.out.println("Aristas: "+Corners.toString());
+                System.out.println("Aristas: "+ Corners);
                 String[] res = new String[Corners.size()];
                 Corners.toArray(res);
                 return res;
+            }
+        }
+    }
+
+    public static String[] MenuMinDistance(){
+        JPanel panel = new JPanel(new GridLayout(2, 2));
+
+        JTextField cornerStart = new JTextField();
+        JTextField cornerEnd = new JTextField();
+
+        panel.add(new JLabel("Ingresa el vertice inicial: "));
+        panel.add(cornerStart);
+        panel.add(new JLabel("Ingresa el vertice final: "));
+        panel.add(cornerEnd);
+
+        while(true) {
+            cornerStart.setText(""); cornerEnd.setText("");
+            int result = JOptionPane.showConfirmDialog(null, panel, "Configuracion Distancia Minima",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION) {
+                String VcornerStart = cornerStart.getText();
+                String VcornerEnd= cornerEnd.getText();
+
+                if(!VcornerStart.isEmpty() && !VcornerEnd.isEmpty()){
+                    return new String[]{VcornerStart, VcornerEnd};
+
+                }else{
+                    System.out.println("No puedes dejar valores vacios");
+                }
+            } else {
+                System.out.println("Debes ingresar valores validos");
             }
         }
     }
