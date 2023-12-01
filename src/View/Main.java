@@ -128,8 +128,6 @@ public class Main {
                 "Matriz de Incidencia",
                 "Distancia Minima",
                 "Recorridos",
-                "Kruskal",
-                "Dijkstra",
                 "Salir"
         };
 
@@ -242,7 +240,7 @@ public class Main {
                         "Arista Ingresada",
                         JOptionPane.QUESTION_MESSAGE
                 );
-                System.out.println("Verices: "+ Corners);
+                System.out.println("Vertices: "+ Corners);
                 String[] res = new String[Corners.size()];
                 Corners.toArray(res);
                 return res;
