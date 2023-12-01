@@ -191,7 +191,7 @@ public class Main {
                         "Aristas Ingresada",
                         JOptionPane.QUESTION_MESSAGE
                 );
-                System.out.println("Vertices: "+ Edges);
+                System.out.println("Aristas: "+ Edges);
                 String[] res = new String[Edges.size()];
                 Edges.toArray(res);
                 return res;
@@ -229,7 +229,7 @@ public class Main {
                         "Arista Ingresada",
                         JOptionPane.QUESTION_MESSAGE
                 );
-                System.out.println("Aristas: "+ Corners);
+                System.out.println("Verices: "+ Corners);
                 String[] res = new String[Corners.size()];
                 Corners.toArray(res);
                 return res;
