@@ -3,6 +3,7 @@ package View;
 import java.awt.*;
 import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import Logic.Grafo;
 
@@ -12,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String Ver, Lad, Opc, OpcRoute;
+        String Opc, OpcRoute;
         
         Boolean App=true, Route;
 
@@ -180,7 +181,7 @@ public class Main {
                 String Vconer2 = corner2.getText();
                 String Vdistance = distance.getText();
 
-                if(Vconer1!="" && Vconer2!="" && Vdistance!=""){
+                if(!Vconer1.isEmpty() && !Vconer2.isEmpty() && !Vdistance.isEmpty()){
                     Edges.add(Vconer1); Edges.add(Vconer2); Edges.add(Vdistance);
                 }else{
                     System.out.println("No puedes dejar valores vacios");
@@ -218,7 +219,7 @@ public class Main {
 
             if (result == JOptionPane.OK_OPTION) {
                 String Vcorner = corner.getText();
-                if(Vcorner!=""){
+                if(!Vcorner.isEmpty()){
                     Corners.add(Vcorner);
                 }else{
                     System.out.println("No puedes dejar valores vacios");

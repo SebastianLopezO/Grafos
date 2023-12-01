@@ -2,5 +2,4 @@ graph ImagenGrafo
 {
 layout=neato;
 2--3
-3--4
 }
