@@ -301,7 +301,7 @@ public class Grafo {
 
     public void ShowGraph(String[] V) {
         int[][] MA = M;
-        StringBuilder ConfigGraphviz = new StringBuilder();
+        StringBuilder ConfigGraphviz = new StringBuilder("graph ImagenGrafo\n{\nlayout=neato;\n");
 
         for (int i = 0; i < MA.length; i++) {
             int j = i + 1;
@@ -312,7 +312,7 @@ public class Grafo {
                 j++;
             }
         }
-
+        ConfigGraphviz.append("}\n");
         ControlGraphviz.Generate(ConfigGraphviz.toString());
 
     }

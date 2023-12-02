@@ -14,6 +14,7 @@ public class ControlGraphviz {
         CrearIMG();
         AbrirIMG();
     }
+
     public static void AbrirIMG() {
         String root = System.getProperty("user.dir");
         String img = root + "\\src\\View\\Graph.jpg";
@@ -43,9 +44,7 @@ public class ControlGraphviz {
             String root = System.getProperty("user.dir");
             FileWriter a = new FileWriter(root+"\\src\\Utility\\ConfigGraphviz.txt");
             BufferedWriter escribir = new BufferedWriter(a);
-            escribir.write("graph ImagenGrafo\n{\nlayout=neato;\n");
             escribir.write(Statemant);
-            escribir.write("}");
             escribir.close();
         } catch (Exception ex) {
             System.out.println("No se ha podido generar la imagen: "+ex.getMessage());
