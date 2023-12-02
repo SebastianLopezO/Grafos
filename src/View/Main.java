@@ -1,11 +1,10 @@
 package View;
 
 import java.awt.*;
-import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 import Logic.Grafo;
+import Utility.ControlGraphviz;
 
 import javax.swing.*;
 
@@ -14,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String Opc, OpcRoute;
-        
+
         Boolean App=true, Route;
 
         String[] V = MenuCorners();
@@ -26,8 +25,8 @@ public class Main {
         }
 
         Grafo G = new Grafo(V.length);
-        G.CrearMatrizAdy(V, L);
-        G.CrearListaAdy(G.getM(), V);
+        G.MatAdj(V, L);
+        G.ListAdj(G.getM(), V);
 
         while(App) {
             Opc = Menu();
@@ -44,12 +43,12 @@ public class Main {
                     break;
 
                 case "Mostrar Grafo":
-                    G.Mostrar_Grafo(V);
+                    G.ShowGraph(V);
                     break;
                     
                 case "Matriz de Incidencia":
                     System.out.println("Matriz Incidencia");
-                    G.CrearMatrizInc(L, V);
+                    G.MatInc(L, V);
                     break;
 
                 case "Distancia Minima":
@@ -108,10 +107,10 @@ public class Main {
                     }
                     break;
                 case "Kruskal":
-                    G.kruskal();
+                    //G.kruskal();
                     break;
                 case "Dijkstra":
-                    G.dijkstra(GetNum("Recorrido de Dijkstra"));
+                    //G.dijkstra(GetNum("Recorrido de Dijkstra"));
                     break;
                 case "Salir":
                     App=false;

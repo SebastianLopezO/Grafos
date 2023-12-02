@@ -2,13 +2,7 @@ package Logic;
 import Bean.Nodo;
 import Utility.ControlGraphviz;
 
-import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Grafo {
 
@@ -45,7 +39,7 @@ public class Grafo {
         this.M = M;
     }
 
-    public void CrearMatrizAdy(String[] V, String[] L) {
+    public void MatAdj(String[] V, String[] L) {
         int[][] M = new int[V.length][V.length];
 
         for (int i = 0; i < L.length; i += 3) {
@@ -81,7 +75,7 @@ public class Grafo {
         }
     }
 
-    public void CrearListaAdy(int[][] M, String[] V) {
+    public void ListAdj(int[][] M, String[] V) {
         Nodo P = null;
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
@@ -125,7 +119,7 @@ public class Grafo {
         }
     }
 
-    public void CrearMatrizInc(String[] L, String[] V){
+    public void MatInc(String[] L, String[] V){
         int[][] MI = new int[V.length][L.length/3];
         int NumDato1 = 0, NumDato2  = 0;
 
@@ -166,7 +160,7 @@ public class Grafo {
 
     public void MinDistance(int min, int inicio, int fin){
         int[][] dm = new int[M.length][M.length];
-        ArrayList<Integer> vis = new ArrayList();
+        ArrayList<Integer> vis = new ArrayList<>();
         int i =0, k =0, d,d1;
         while(k < dm.length){
             for (int j = 0; j < M.length; j++) {
@@ -249,12 +243,15 @@ public class Grafo {
             }
             P = P.getLiga();
         }
+        System.out.println();
     }
 
     public void BFS(String S, int[] Visitado, String[] Ve, String[] Cola) {
         int Primero = -1, Ultimo = -1, j = 0, V = 0;
         String W;
         Nodo P;
+
+        StringBuilder ConfigGraphviz = new StringBuilder("digraph G {\n");
 
         while (j < Ve.length) {
             if (Ve[j].equals(S)) {
@@ -288,6 +285,8 @@ public class Grafo {
                     j++;
                 }
                 if (Visitado[V] == 0) {
+                    ConfigGraphviz.append(String.format("  %s -> %s [label=\"%d\", color=\"blue\"];\n", Cola[Primero], W, M[V][Primero]));
+
                     Visitado[V] = 1;
                     Ultimo++;
                     Cola[Ultimo] = W;
@@ -295,23 +294,26 @@ public class Grafo {
                 P = P.getLiga();
             }
         }
+        System.out.println();
+        ConfigGraphviz.append("}\n");
+        ControlGraphviz.Generate(ConfigGraphviz.toString());
     }
 
-    public void Mostrar_Grafo(String[] V) {
+    public void ShowGraph(String[] V) {
         int[][] MA = M;
-        String ConfigGraphviz = "";
-        int p = 0;
+        StringBuilder ConfigGraphviz = new StringBuilder();
+
         for (int i = 0; i < MA.length; i++) {
-            int j = i+1;
+            int j = i + 1;
             while (j < MA[0].length) {
                 if (MA[i][j] != 0) {
-                    ConfigGraphviz += ( V[i] + "--" + V[j] + "\n");
+                    ConfigGraphviz.append(String.format("%s--%s [label=\"%d\"];\n", V[i], V[j], MA[i][j]));
                 }
                 j++;
-
             }
         }
-        ControlGraphviz.Generate(ConfigGraphviz);
+
+        ControlGraphviz.Generate(ConfigGraphviz.toString());
 
     }
 }
