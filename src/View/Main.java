@@ -177,7 +177,7 @@ public class Main {
         ArrayList<String> Edges = new ArrayList<>();
 
         while(true) {
-            corner1.setText(""); corner2.setText(""); distance.setText("");
+            corner1.setText(""); corner2.setText("");distance.setText("");
             int result = JOptionPane.showConfirmDialog(null, panel, "Ingreso de Aristas",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -225,6 +225,7 @@ public class Main {
 
         while(true) {
             corner.setText("");
+            corner.requestFocusInWindow();
             int result = JOptionPane.showConfirmDialog(null, panel, "Ingreso de Vertices",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
