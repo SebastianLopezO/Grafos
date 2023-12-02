@@ -83,16 +83,19 @@ public class Main {
 
                         switch (OpcRoute) {
                             case "DFS":
-                                System.out.println("Ingrese el dato desde el cual desea hacer el recorrido: ");
-                                String SD = sc.next();
+                                String SD = JOptionPane.showInputDialog("Ingrese el dato desde el cual desea hacer el recorrido: ");
 
                                 int[] Visitado = new int[V.length];
+                                ControlGraphviz.Vaciar();
+                                ControlGraphviz.Agregar("graph ImagenGrafo\n{\nlayout=neato;\n");
                                 G.DFS(SD, Visitado, V);
+                                ControlGraphviz.Agregar("}\n");
+                                ControlGraphviz.CrearIMG();
+                                ControlGraphviz.AbrirIMG();
                                 break;
 
                             case "BFS":
-                                System.out.println("Ingrese el dato desde el cual desea hacer el recorrido: ");
-                                String SB = sc.next();
+                                String SB =  JOptionPane.showInputDialog("Ingrese el dato desde el cual desea hacer el recorrido: ");
 
                                 String[] Cola = new String[V.length];
                                 int[] Visitado2 = new int[V.length];

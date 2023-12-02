@@ -229,6 +229,7 @@ public class Grafo {
         System.out.print(S + " ");
         P = Vect[V];
 
+
         while (P != null) {
             W = P.getDato();
             j = 0;
@@ -239,6 +240,7 @@ public class Grafo {
                 j++;
             }
             if (Visitado[V] == 0) {
+                ControlGraphviz.Agregar(S + " -- " + W + " [color=red]; \n");
                 DFS(W, Visitado, Ve);
             }
             P = P.getLiga();

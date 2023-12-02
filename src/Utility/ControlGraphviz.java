@@ -51,6 +51,29 @@ public class ControlGraphviz {
         }
     }
 
+    public static void Agregar(String Statemant) {
+        try {
+            String root = System.getProperty("user.dir");
+            FileWriter a = new FileWriter(root+"\\src\\Utility\\ConfigGraphviz.txt", true);
+            BufferedWriter escribir = new BufferedWriter(a);
+            escribir.write(Statemant);
+            escribir.close();
+        } catch (Exception ex) {
+            System.out.println("No se ha podido generar la imagen: "+ex.getMessage());
+        }
+    }
+
+    public static void Vaciar() {
+        try {
+            String root = System.getProperty("user.dir");
+            FileWriter escritor = new FileWriter(root+"\\src\\Utility\\ConfigGraphviz.txt");
+            escritor.write(""); //
+            escritor.close();
+        } catch (IOException e) {
+            System.out.println("Error al vaciar el archivo: " + e.getMessage());
+        }
+    }
+
     public static void CrearIMG() {
         try {
             String root = System.getProperty("user.dir");
